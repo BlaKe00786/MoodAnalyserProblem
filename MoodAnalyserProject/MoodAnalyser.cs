@@ -16,13 +16,20 @@ namespace MoodAnalyserProject
         }
         public string analyseMood()
         {
-            if(this.message.Contains("sad", StringComparison.InvariantCultureIgnoreCase))
+            try
             {
-                return "SAD";
-            }
-            else
+                if (this.message.Contains("sad", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return "SAD";
+                }
+                else
+                {
+                    return "HAPPY";
+                }
+            }catch(Exception exception)
             {
-                return "HAPPY"; 
+                Console.WriteLine("Exception NULL occured : " + exception);
+                return "HAPPY";
             }
         }
     }

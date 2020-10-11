@@ -9,7 +9,7 @@ namespace MoodAnalyserTesting
         public void TestMethod1()
         {
             string expected = "HAPPY";
-            MoodAnalyser moodanalyser = new MoodAnalyser("I am in any mood");
+            MoodAnalyser moodanalyser = new MoodAnalyser(null);
             string result = moodanalyser.analyseMood();
             Assert.AreEqual(expected, result);
         }
