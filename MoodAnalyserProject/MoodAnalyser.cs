@@ -18,18 +18,18 @@ namespace MoodAnalyserProject
         {
             try
             {
-                if (this.message.Contains("sad", StringComparison.InvariantCultureIgnoreCase))
+                if (this.message.Equals(string.Empty))
                 {
+                    throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.EMPTY_MESSAGE, "Mood should not be empty");
+                }
+                if (this.message.Contains("sad"))
                     return "SAD";
-                }
                 else
-                {
                     return "HAPPY";
-                }
-            }catch(Exception exception)
+            }
+            catch (NullReferenceException)
             {
-                Console.WriteLine("Exception NULL occured : " + exception);
-                return "HAPPY";
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NULL_MESSAGE, "Mood should not be null");
             }
         }
     }
