@@ -12,7 +12,13 @@ namespace MoodAnalyserTesting
             object expected = new MoodAnalyser(message);
             object obj = MoodAnalyserfactory.CreateMoodAnalyser("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser");
             expected.Equals(obj);
-            //Assert.AreEqual(expected.GetType(), obj.GetType());
+        }
+        [TestMethod]
+        public void GivenMoodAnalyseClassName_ShouldReturnMoodAnalyseObject_UsingParameterizedConstructor()
+        {
+            object expected = new MoodAnalyser("HAPPY");
+            object obj = MoodAnalyserfactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser", "SAD");
+            expected.Equals(obj);
         }
     }
 }
