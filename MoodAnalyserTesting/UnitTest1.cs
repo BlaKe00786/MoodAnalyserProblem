@@ -6,12 +6,13 @@ namespace MoodAnalyserTesting
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void GivenMoodAnalyseClassName_ShouldReturnMoodAnalyseObject()
         {
-            string expected = "HAPPY";
-            MoodAnalyser moodanalyser = new MoodAnalyser("");
-            string result = moodanalyser.analyseMood();
-            Assert.AreEqual(expected, result);
+            string message = null;
+            object expected = new MoodAnalyser(message);
+            object obj = MoodAnalyserfactory.CreateMoodAnalyser("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser");
+            expected.Equals(obj);
+            //Assert.AreEqual(expected.GetType(), obj.GetType());
         }
     }
 }
