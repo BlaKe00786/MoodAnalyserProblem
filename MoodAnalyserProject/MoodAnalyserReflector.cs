@@ -14,20 +14,28 @@ namespace MoodAnalyserProject
         }
         public static string InvokeAnalyseMood(string message,string methodName)
         {
-            try
+            if (message.Equals(null))
             {
-                Assembly executing = Assembly.GetExecutingAssembly();
-                Type moodAnalyseType = executing.GetType("MoodAnalyserProject.MoodAnalyser");
-                MethodInfo methodInfo = moodAnalyseType.GetMethod(methodName);
-                object result = null;
-                ConstructorInfo ctor = moodAnalyseType.GetConstructor(new[] { typeof(string) });
-                object instance = ctor.Invoke(new object[] { message });
-                result = methodInfo.Invoke(instance, null);
-                return (string)result;
-            }catch
+                throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NULL_MESSAGE, "ssage should not be null");
+            }
+            Assembly executing = Assembly.GetExecutingAssembly();
+            Type moodAnalyseType = executing.GetType("MoodAnalyserProject.MoodAnalyser");
+            MethodInfo methodInfo = moodAnalyseType.GetMethod(methodName);
+            if(methodInfo.Equals(null))
             {
                 throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_METHOD, "No such method found");
             }
+            object result = null;
+            FieldInfo fields = moodAnalyseType.GetField("message");
+            if (fields.Equals(null)) 
+            {
+                  throw new MoodAnalyserCustomException(MoodAnalyserCustomException.ExceptionType.NO_SUCH_FIELD, "No such Field found");
+            }
+            object instance = Activator.CreateInstance(moodAnalyseType);
+            fields.SetValue(instance, message);
+            result = methodInfo.Invoke(instance, null);
+            return (string)result;
+                
         }
 
         public static object CreateMoodAnalyser(string className, string constructorName)
