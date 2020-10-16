@@ -10,15 +10,24 @@ namespace MoodAnalyserTesting
         {
             string message = null;
             object expected = new MoodAnalyser(message);
-            object obj = MoodAnalyserfactory.CreateMoodAnalyser("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser");
+            object obj = MoodAnalyserReflector.CreateMoodAnalyser("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser");
             expected.Equals(obj);
         }
         [TestMethod]
         public void GivenMoodAnalyseClassName_ShouldReturnMoodAnalyseObject_UsingParameterizedConstructor()
         {
             object expected = new MoodAnalyser("HAPPY");
-            object obj = MoodAnalyserfactory.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser", "SAD");
+            object obj = MoodAnalyserReflector.CreateMoodAnalyseUsingParameterizedConstructor("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser", "SAD");
             expected.Equals(obj);
+        }
+        [TestMethod]
+        public void GivenMessage_ShouldReturnMood()
+        {
+            string message = "I am feeling happy";
+            string expected = "HAPPY";
+            string result = MoodAnalyserReflector.InvokeAnalyseMood(message, "analyseMood");
+            Assert.AreEqual(expected,result);
+            
         }
     }
 }
